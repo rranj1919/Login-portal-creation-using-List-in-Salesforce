@@ -1,0 +1,21 @@
+public class LoginPages {
+    public String userName{get; set;}
+    public String password {get; set;}
+    public boolean testFlag = true;
+    Public void doLogin(){
+        List<LoginDB__c> li = ([SELECT Name, password__c FROM LoginDB__c]);
+        // d = {UName: Shyam, Pwd: Rahul},{UName: Rahul, Pwd: Shyam}
+        // Input = {UName: Shyam, Pwd: Rahul},{UName: Rahul, Pwd: XXX},{UName: Shyam, Pwd: XXX},,{UName: Shyam, Pwd: Rahul}
+        for(LoginDb__c d : li) {
+            if(d.Name==UserName && d.password__c==password && testFlag){
+                testFlag = false;
+            }
+        }
+        if(testFlag){
+            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.ERROR,'incorrect uid'));
+        }
+        else{
+            ApexPages.addmessage(new ApexPages.message(ApexPages.severity.CONFIRM,'correct userName'));
+        }
+    }
+}
